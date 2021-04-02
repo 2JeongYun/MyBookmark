@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// Fixme BookMark 의 Category FK 추가에 따른 테스트 변경
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BookMarkRepositoryTest {
@@ -25,10 +26,12 @@ public class BookMarkRepositoryTest {
     public void testBookMarkRepositorySave() {
         String address = "testAddress";
         String description = "testDescription";
+        String color = "testColor";
 
         bookMarkRepository.save(BookMark.builder()
                 .address(address)
                 .description(description)
+                .color(color)
                 .build());
 
         BookMark bookMark = bookMarkRepository.findAll().get(0);
@@ -36,7 +39,7 @@ public class BookMarkRepositoryTest {
         assertThat(bookMark.getAddress()).isEqualTo(address);
         assertThat(bookMark.getDescription()).isEqualTo(description);
         assertThat(bookMark.getAlias()).isNull();
-        assertThat(bookMark.getColor()).isEqualTo(BookMark.DEFAULT_COLOR);
+        assertThat(bookMark.getColor()).isEqualTo(color);
         assertThat(bookMark.getOpenCount()).isEqualTo(0);
     }
 }
