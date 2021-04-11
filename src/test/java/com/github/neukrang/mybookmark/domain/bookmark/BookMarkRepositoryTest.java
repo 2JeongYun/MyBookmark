@@ -1,6 +1,9 @@
 package com.github.neukrang.mybookmark.domain.bookmark;
 
+import com.github.neukrang.mybookmark.domain.Category.Category;
+import com.github.neukrang.mybookmark.domain.Category.CategoryRepository;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +12,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// Fixme BookMark 의 Category FK 추가에 따른 테스트 변경
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BookMarkRepositoryTest {
 
     @Autowired
-    BookMarkRepository bookMarkRepository;
+    private BookMarkRepository bookMarkRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @After
     public void clean() {
@@ -28,7 +33,13 @@ public class BookMarkRepositoryTest {
         String description = "testDescription";
         String color = "testColor";
 
+        String categoryName = "testCategory";
+        String categoryColor = "testColor";
+
+        Category category = setTestCategory(categoryName, categoryColor);
+
         bookMarkRepository.save(BookMark.builder()
+                .category(category)
                 .address(address)
                 .description(description)
                 .color(color)
@@ -40,6 +51,14 @@ public class BookMarkRepositoryTest {
         assertThat(bookMark.getDescription()).isEqualTo(description);
         assertThat(bookMark.getAlias()).isNull();
         assertThat(bookMark.getColor()).isEqualTo(color);
+        assertThat(bookMark.getCategory()).isEqualToComparingFieldByField(category);
         assertThat(bookMark.getOpenCount()).isEqualTo(0);
+    }
+
+    public Category setTestCategory(String name, String color) {
+        return categoryRepository.save(Category.builder()
+                .name(name)
+                .color(color)
+                .build());
     }
 }
