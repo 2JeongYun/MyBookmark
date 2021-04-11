@@ -35,16 +35,24 @@ public class BookMark {
     private int openCount;
 
     @Builder
-    public BookMark(String address, String alias, String description, String color) {
+    public BookMark(Category category, String address, String alias, String description, String color) {
+        this.category = category;
         this.address = address;
         this.alias = alias;
         this.description = description;
         this.color = color;
     }
 
-    public void update(String alias, String description, String color) {
+    public void update(Category category, String alias, String description, String color) {
+        this.category = category;
         this.alias = alias;
         this.description = description;
         this.color = color;
+    }
+
+    public int addOpenCount() {
+        this.openCount++;
+        this.category.addOpenCount();
+        return this.openCount;
     }
 }
