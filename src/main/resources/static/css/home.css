@@ -1,0 +1,31 @@
+.navbar {
+    margin: 16px;
+    border-radius: 8px;
+}
+
+.category-container {
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.category-box {
+    display: inline-block;
+}
+
+.list-group-item {
+    padding: 4px 20px 4px 20px;
+    font-size: medium;
+}
+
+.center {
+    display: flex;
+    align-items: center
+}
+
+.counter {
+    float: right;
+}
+
+.card-header {
+    font-weight: bold;
+}
