@@ -1,7 +1,7 @@
 package com.github.neukrang.mybookmark.domain.bookmark;
 
-import com.github.neukrang.mybookmark.domain.Category.Category;
-import com.github.neukrang.mybookmark.domain.Category.CategoryRepository;
+import com.github.neukrang.mybookmark.domain.category.Category;
+import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +25,7 @@ public class BookmarkRepositoryTest {
     @After
     public void clean() {
         bookmarkRepository.deleteAll();
+        categoryRepository.deleteAll();
     }
 
     @Transactional

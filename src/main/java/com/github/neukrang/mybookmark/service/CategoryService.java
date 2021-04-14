@@ -1,6 +1,7 @@
 package com.github.neukrang.mybookmark.service;
 
-import com.github.neukrang.mybookmark.domain.Category.CategoryRepository;
+import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
+import com.github.neukrang.mybookmark.web.dto.CategoryResponseDto;
 import com.github.neukrang.mybookmark.web.dto.CategorySaveRequestDto;
 
 import lombok.RequiredArgsConstructor;

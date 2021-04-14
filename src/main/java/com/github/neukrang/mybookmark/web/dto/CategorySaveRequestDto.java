@@ -1,6 +1,6 @@
 package com.github.neukrang.mybookmark.web.dto;
 
-import com.github.neukrang.mybookmark.domain.Category.Category;
+import com.github.neukrang.mybookmark.domain.category.Category;
 import lombok.Getter;
 
 @Getter

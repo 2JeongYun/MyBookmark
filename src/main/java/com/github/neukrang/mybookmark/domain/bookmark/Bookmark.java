@@ -1,6 +1,6 @@
 package com.github.neukrang.mybookmark.domain.bookmark;
 
-import com.github.neukrang.mybookmark.domain.Category.Category;
+import com.github.neukrang.mybookmark.domain.category.Category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
