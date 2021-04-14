@@ -1,4 +1,4 @@
-package com.github.neukrang.mybookmark.domain.Category;
+package com.github.neukrang.mybookmark.domain.category;
 
 import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import lombok.Builder;

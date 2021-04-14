@@ -1,4 +1,4 @@
-package com.github.neukrang.mybookmark.domain.Category;
+package com.github.neukrang.mybookmark.domain.category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
