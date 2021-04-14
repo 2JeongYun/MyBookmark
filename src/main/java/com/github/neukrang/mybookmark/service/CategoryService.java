@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class CategoryService {
@@ -17,5 +20,12 @@ public class CategoryService {
     @Transactional
     public Long save(CategorySaveRequestDto requestDto) {
         return categoryRepository.save(requestDto.toEntity()).getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<CategoryResponseDto> findAll() {
+        return categoryRepository.findAll().stream()
+                .map(CategoryResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
