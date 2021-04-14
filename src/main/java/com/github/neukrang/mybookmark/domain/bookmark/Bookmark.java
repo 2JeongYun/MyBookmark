@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class BookMark {
+public class Bookmark {
 
     final static String DEFAULT_COLOR = "WHITE";
 
@@ -35,16 +35,23 @@ public class BookMark {
     private int openCount;
 
     @Builder
-    public BookMark(Category category, String address, String alias, String description, String color) {
-        this.category = category;
+    public Bookmark(Category category, String address, String alias, String description, String color) {
+        this.category = setCategory(category);
         this.address = address;
         this.alias = alias;
         this.description = description;
         this.color = color;
     }
 
-    public void update(Category category, String alias, String description, String color) {
+    public Category setCategory(Category category) {
         this.category = category;
+        category.addBookmark(this);
+
+        return category;
+    }
+
+    public void update(Category category, String alias, String description, String color) {
+        setCategory(category);
         this.alias = alias;
         this.description = description;
         this.color = color;
