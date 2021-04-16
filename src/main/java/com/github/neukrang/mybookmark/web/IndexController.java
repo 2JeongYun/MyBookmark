@@ -13,8 +13,7 @@ public class IndexController {
     private final CategoryService categoryService;
 
     @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("categoryList", categoryService.findAll());
+    public String home() {
         return "home";
     }
 }
