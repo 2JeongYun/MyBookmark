@@ -1,4 +1,4 @@
-let home = {
+let app = {
     init: function () {
         let _this = this;
         $('#category-save-btn').on('click', function () {
@@ -27,4 +27,4 @@ let home = {
     }
 }
 
-home.init();
+app.init();
