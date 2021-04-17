@@ -26,6 +26,7 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    // FIXME 기본값 설정
     private int openCount;
 
     @Builder
@@ -36,6 +37,13 @@ public class Category {
 
     public void addBookmark(Bookmark bookmark) {
         bookmarks.add(bookmark);
+    }
+
+    public Long update(String name, String color) {
+        this.name = name;
+        this.color = color;
+
+        return this.id;
     }
 
     public int addOpenCount() {
