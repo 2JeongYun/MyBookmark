@@ -43,6 +43,9 @@ gradle-app.setting
 # node modules
 **/node_modules/**
 
+# db log
+**/*.db
+
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
