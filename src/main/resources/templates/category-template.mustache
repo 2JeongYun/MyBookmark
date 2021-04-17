@@ -3,7 +3,7 @@
 <div class="card" style="border-color: {{color}}">
     <!-- 컬러는 데이터 받아서 결정 -->
     <div class="card-header" style="border-color: {{color}}">
-        {{name}}
+        <a class="modal-opener" data-id="{{id}}" data-toggle="modal" data-target="#category-modify-modal" style="color: {{color}}">{{name}}</a>
         <span class="counter">{{openCount}}</span>
     </div>
     <!-- 별칭 표시 -->

@@ -11,12 +11,12 @@
             <a class="dropdown-item" href="#">섹션3</a>
         </div>
         <li class="nav-item">
-            <button class="btn btn-dark center" data-toggle="modal" data-target="#category-save-modal">
+            <button class="btn btn-dark center" data-toggle="modal" data-target="#category-create-modal">
                 <span class="material-icons">add_box</span>카테고리
             </button>
         </li>
         <li class="nav-item">
-            <button class="btn btn-dark center" data-toggle="modal" data-target="#category-save-modal">
+            <button class="btn btn-dark center" data-toggle="modal" data-target="#category-create-modal">
                 <span class="material-icons">add_box</span>북마크
             </button>
         </li>
@@ -37,5 +37,6 @@
 <script id="category-template" type="x-tmpl-mustache">
     {{>category-template}}
 </script>
-{{>modal/category-save}}
+{{>modal/category-modify}}
+{{>modal/category-create}}
 {{>layout/footer}}

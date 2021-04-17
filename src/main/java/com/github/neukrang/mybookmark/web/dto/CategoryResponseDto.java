@@ -9,12 +9,14 @@ import java.util.List;
 @Getter
 public class CategoryResponseDto {
 
+    private Long id;
     private String name;
     private String color;
     private List<Bookmark> bookmarks;
     private int openCount;
 
     public CategoryResponseDto(Category Entity) {
+        this.id = Entity.getId();
         this.name = Entity.getName();
         this.color = Entity.getColor();
         this.bookmarks = Entity.getBookmarks();

@@ -30,6 +30,11 @@
     font-weight: bold;
 }
 
+.modal-opener:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 @media (min-width: 24em) {
     .card-columns {
         -webkit-column-count: 1;
