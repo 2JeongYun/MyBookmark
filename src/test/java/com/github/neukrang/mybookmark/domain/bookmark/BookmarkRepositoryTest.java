@@ -28,8 +28,8 @@ public class BookmarkRepositoryTest {
         categoryRepository.deleteAll();
     }
 
-    @Transactional
     @Test
+    @Transactional
     public void 북마크_저장한다() {
         String address = "testAddress";
         String description = "testDescription";

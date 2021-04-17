@@ -1,5 +1,6 @@
 package com.github.neukrang.mybookmark.domain.bookmark;
 
+import com.github.neukrang.mybookmark.domain.BaseTimeEntity;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Bookmark {
+public class Bookmark extends BaseTimeEntity {
 
     final static String DEFAULT_COLOR = "WHITE";
 
@@ -25,6 +26,7 @@ public class Bookmark {
     @Column(nullable = false)
     private String address;
 
+    // FIXME 기본값 설정
     private String alias;
 
     @Column(columnDefinition = "TEXT")
@@ -32,6 +34,7 @@ public class Bookmark {
 
     private String color;
 
+    // FIXME 기본값 설정
     private int openCount;
 
     @Builder

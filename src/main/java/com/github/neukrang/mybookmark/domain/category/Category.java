@@ -1,5 +1,6 @@
 package com.github.neukrang.mybookmark.domain.category;
 
+import com.github.neukrang.mybookmark.domain.BaseTimeEntity;
 import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Category {
+public class Category extends BaseTimeEntity {
 
     @Id
     @Column

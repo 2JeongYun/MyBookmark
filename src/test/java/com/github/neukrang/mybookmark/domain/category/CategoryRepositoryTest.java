@@ -1,5 +1,7 @@
-package com.github.neukrang.mybookmark.domain.bookmark;
+package com.github.neukrang.mybookmark.domain.category;
 
+import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
+import com.github.neukrang.mybookmark.domain.bookmark.BookmarkRepository;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import org.junit.After;
