@@ -8,15 +8,29 @@ let app = {
         });
 
         // init category modify modal
+        let id;
+        $('#category-delete-btn').on('click', function () {
+            if (id > 0) {
+                _this.categoryDelete(id);
+            }
+        });
+        $('#category-modify-btn').on('click', function () {
+            if (id > 0) {
+                _this.categoryUpdate(id);
+            }
+        });
+
         $('#category-modify-modal').on('show.bs.modal', function (e) {
-            let id = e.relatedTarget.getAttribute('data-id');
+            id = e.relatedTarget.getAttribute('data-id');
+            console.log(id);
             $('#category-modify-modal-name').
                     attr('placeholder', e.relatedTarget.innerHTML);
-            $('#category-modify-modal-color').
-                    attr('value', rgbToHex(e.relatedTarget.style.color));
-            $('#category-delete-btn').on('click', function () {
-                _this.categoryDelete(id);
-            });
+            console.log(e.relatedTarget.innerHTML);
+            $('#category-modify-modal-color').val(rgbToHex(e.relatedTarget.style.color));
+        });
+        $('#category-modify-modal').on('hide.bs.modal', function (e) {
+            id = -1;
+            $('#category-modify-modal-name').val("");
         });
     },
 
@@ -32,9 +46,33 @@ let app = {
             url: '/api/v1/category',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data),
+            data: JSON.stringify(data)
         }).done(function () {
             alert('카테고리가 생성되었습니다.');
+            _this.getCategoriesFromServer();
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    categoryUpdate: function (id) {
+        let _this = this;
+        let data = {
+            name: $('#category-modify-modal-name').val(),
+            color: $('#category-modify-modal-color').val()
+        };
+        if (data.name === '') {
+            data.name = $('#category-modify-modal-name').attr('placeholder');
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: '/api/v1/category/' + id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function () {
+            alert('카테고리가 수정되었습니다');
             _this.getCategoriesFromServer();
         }).fail(function (error) {
             alert(JSON.stringify(error));
