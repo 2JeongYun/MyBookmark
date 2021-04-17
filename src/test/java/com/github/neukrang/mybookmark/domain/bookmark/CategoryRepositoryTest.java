@@ -28,7 +28,7 @@ public class CategoryRepositoryTest {
     }
 
     @Test
-    public void isMapped() {
+    public void 북마크_카테고리_연관된다() {
         Category category = categoryRepository.save(Category.builder()
                 .name("test category")
                 .color("test color")

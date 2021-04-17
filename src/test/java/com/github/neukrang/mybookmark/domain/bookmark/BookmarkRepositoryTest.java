@@ -30,7 +30,7 @@ public class BookmarkRepositoryTest {
 
     @Transactional
     @Test
-    public void testBookmarkRepositorySave() {
+    public void 북마크_저장한다() {
         String address = "testAddress";
         String description = "testDescription";
         String color = "testColor";
