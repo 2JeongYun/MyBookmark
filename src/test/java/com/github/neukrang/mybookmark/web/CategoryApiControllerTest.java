@@ -1,6 +1,7 @@
 package com.github.neukrang.mybookmark.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.neukrang.mybookmark.domain.bookmark.BookmarkRepository;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import com.github.neukrang.mybookmark.web.dto.CategorySaveRequestDto;
@@ -35,12 +36,16 @@ public class CategoryApiControllerTest {
     private CategoryRepository categoryRepository;
 
     @Autowired
+    private BookmarkRepository bookmarkRepository;
+
+    @Autowired
     private WebApplicationContext context;
 
     private MockMvc mockMvc;
 
     @After
     public void clean() {
+        bookmarkRepository.deleteAll();
         categoryRepository.deleteAll();
     }
 
