@@ -1,7 +1,9 @@
 package com.github.neukrang.mybookmark.domain.bookmark;
 
+import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
+import com.github.neukrang.mybookmark.web.dto.BookmarkUpdateRequestDto;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,22 +31,22 @@ public class BookmarkRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void 북마크_저장한다() {
         String address = "testAddress";
         String description = "testDescription";
         String color = "testColor";
 
-        Category category = makeTestCategory();
+        Category category = makeTestCategory("test1");
 
-        bookmarkRepository.save(Bookmark.builder()
+        Long bookmarkId = bookmarkRepository.save(Bookmark.builder()
                 .category(category)
                 .address(address)
                 .description(description)
                 .color(color)
-                .build());
+                .build()).getId();
 
-        Bookmark bookmark = bookmarkRepository.findAll().get(0);
+        Bookmark bookmark = bookmarkRepository.findById(bookmarkId)
+                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindBookmarkMsg(bookmarkId)));
 
         assertThat(bookmark.getAddress()).isEqualTo(address);
         assertThat(bookmark.getDescription()).isEqualTo(description);
@@ -54,9 +56,9 @@ public class BookmarkRepositoryTest {
         assertThat(bookmark.getOpenCount()).isEqualTo(0);
     }
 
-    public Category makeTestCategory() {
+    public Category makeTestCategory(String name) {
         return categoryRepository.save(Category.builder()
-                .name("test name")
+                .name(name)
                 .color("test color")
                 .build());
     }

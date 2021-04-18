@@ -1,5 +1,6 @@
 package com.github.neukrang.mybookmark.service;
 
+import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import com.github.neukrang.mybookmark.web.dto.CategoryResponseDto;
@@ -34,7 +35,7 @@ public class CategoryService {
     @Transactional
     public CategoryResponseDto findById(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 없습니다. ID:" + id));
+                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
         return new CategoryResponseDto(category);
     }
 
@@ -49,7 +50,7 @@ public class CategoryService {
     @Transactional
     public Long delete(Long id) {
         categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 없습니다 ID:" + id));
+                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
         categoryRepository.deleteById(id);
         return id;
     }

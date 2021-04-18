@@ -1,6 +1,7 @@
 package com.github.neukrang.mybookmark.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.bookmark.BookmarkRepository;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
@@ -18,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -77,7 +77,7 @@ public class CategoryApiControllerTest {
         Long id = Long.parseLong(result.getResponse().getContentAsString());
 
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 없습니다. ID:" + id));
+                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
         assertThat(category.getName()).isEqualTo(name);
         assertThat(category.getColor()).isEqualTo(color);
     }
@@ -118,7 +118,7 @@ public class CategoryApiControllerTest {
                 .andExpect(status().isOk());
 
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 카테고리가 없습니다. ID:" + id));
+                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
         assertThat(category.getName()).isEqualTo(name);
         assertThat(category.getColor()).isEqualTo(color);
     }
