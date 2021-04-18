@@ -2,19 +2,17 @@ package com.github.neukrang.mybookmark.domain.category;
 
 import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import com.github.neukrang.mybookmark.domain.bookmark.BookmarkRepository;
-import com.github.neukrang.mybookmark.domain.category.Category;
-import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 public class CategoryRepositoryTest {
 
     @Autowired
