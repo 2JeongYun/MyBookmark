@@ -23,7 +23,7 @@ public class Bookmark extends BaseTimeEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String address;
 
     // FIXME 기본값 설정
