@@ -35,16 +35,6 @@ public class CategoryRepositoryTest {
                 .build());
 
         int bookmarkCount = 2;
-        for (int i = 0; i < bookmarkCount; i++) {
-            saveMockBookmarks(category, bookmarkRepository);
-        }
-        saveMockCategory(categoryRepository, bookmarkRepository);
-
-        categoryRepository.findById(category.getId());
-        assertThat(category.getBookmarks().size()).isEqualTo(bookmarkCount);
-    }
-
-    public void saveMockBookmarks(Category category, BookmarkRepository bookmarkRepository) {
         bookmarkRepository.save(Bookmark.builder()
                 .address("test1")
                 .category(category)
@@ -52,7 +42,20 @@ public class CategoryRepositoryTest {
                 .color("test1")
                 .description("test1")
                 .build());
+        bookmarkRepository.save(Bookmark.builder()
+                .address("test2")
+                .category(category)
+                .alias("test1")
+                .color("test1")
+                .description("test1")
+                .build());
+
+        saveMockCategory(categoryRepository, bookmarkRepository);
+
+        categoryRepository.findById(category.getId());
+        assertThat(category.getBookmarks().size()).isEqualTo(bookmarkCount);
     }
+
     public void saveMockCategory(CategoryRepository categoryRepository, BookmarkRepository bookmarkRepository) {
         Category category = categoryRepository.save(Category.builder()
                 .name("Mock")
