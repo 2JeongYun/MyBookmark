@@ -47,6 +47,11 @@ public class Bookmark extends BaseTimeEntity {
     }
 
     public Category setCategory(Category category) {
+        Category prevCategory = this.category;
+        if (prevCategory != null) {
+            prevCategory.deleteBookmark(this);
+        }
+
         this.category = category;
         category.addBookmark(this);
 

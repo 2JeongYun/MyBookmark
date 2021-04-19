@@ -40,6 +40,10 @@ public class Category extends BaseTimeEntity {
         bookmarks.add(bookmark);
     }
 
+    public void deleteBookmark(Bookmark bookmark) {
+        bookmarks.remove(bookmark);
+    }
+
     public Long update(String name, String color) {
         this.name = name;
         this.color = color;
