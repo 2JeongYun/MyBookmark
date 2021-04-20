@@ -2,6 +2,7 @@ package com.github.neukrang.mybookmark.domain.category;
 
 import com.github.neukrang.mybookmark.domain.BaseTimeEntity;
 import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
+import com.github.neukrang.mybookmark.domain.section.Section;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,13 +28,17 @@ public class Category extends BaseTimeEntity {
     @OneToMany(mappedBy = "category")
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    @ManyToOne
+    private Section section;
+
     // FIXME 기본값 설정
     private int openCount;
 
     @Builder
-    public Category(String name, String color) {
+    public Category(String name, String color, Section section) {
         this.name = name;
         this.color = color;
+        this.section = setSection(section);
     }
 
     public void addBookmark(Bookmark bookmark) {
@@ -44,7 +49,20 @@ public class Category extends BaseTimeEntity {
         bookmarks.remove(bookmark);
     }
 
-    public Long update(String name, String color) {
+    public Section setSection(Section section) {
+        Section prevSection = this.section;
+        if (prevSection != null) {
+            prevSection.deleteCategory(this);
+        }
+
+        this.section = section;
+        section.addCategory(this);
+
+        return section;
+    }
+
+    public Long update(Section section, String name, String color) {
+        setSection(section);
         this.name = name;
         this.color = color;
 

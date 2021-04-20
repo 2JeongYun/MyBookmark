@@ -3,6 +3,8 @@ package com.github.neukrang.mybookmark.service;
 import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
+import com.github.neukrang.mybookmark.domain.section.Section;
+import com.github.neukrang.mybookmark.domain.section.SectionRepository;
 import com.github.neukrang.mybookmark.web.dto.CategoryResponseDto;
 import com.github.neukrang.mybookmark.web.dto.CategorySaveRequestDto;
 
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final SectionRepository sectionRepository;
 
     @Transactional
     public Long save(CategorySaveRequestDto requestDto) {
@@ -42,8 +45,10 @@ public class CategoryService {
     @Transactional
     public Long update(Long id, CategoryUpdateRequestDto requestDto) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException());
-        category.update(requestDto.getName(), requestDto.getColor());
+                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
+        Section section = sectionRepository.findById(requestDto.getSectionId())
+                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindSectionMsg(requestDto.getSectionId())));
+        category.update(section, requestDto.getName(), requestDto.getColor());
         return id;
     }
 

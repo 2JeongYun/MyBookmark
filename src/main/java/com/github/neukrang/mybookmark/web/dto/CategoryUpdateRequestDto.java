@@ -10,10 +10,12 @@ public class CategoryUpdateRequestDto {
 
     private String name;
     private String color;
+    private Long sectionId;
 
     @Builder
-    public CategoryUpdateRequestDto (String name, String color) {
+    public CategoryUpdateRequestDto (String name, String color, Long sectionId) {
         this.name = name;
         this.color = color;
+        this.sectionId = sectionId;
     }
 }
