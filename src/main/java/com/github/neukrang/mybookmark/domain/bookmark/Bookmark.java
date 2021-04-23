@@ -1,5 +1,6 @@
 package com.github.neukrang.mybookmark.domain.bookmark;
 
+import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.BaseTimeEntity;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import lombok.Builder;
@@ -26,7 +27,6 @@ public class Bookmark extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String address;
 
-    // FIXME 기본값 설정
     private String alias;
 
     @Column(columnDefinition = "TEXT")
@@ -34,7 +34,6 @@ public class Bookmark extends BaseTimeEntity {
 
     private String color;
 
-    // FIXME 기본값 설정
     private int openCount;
 
     @Builder

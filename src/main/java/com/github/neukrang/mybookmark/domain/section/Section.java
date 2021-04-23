@@ -19,6 +19,7 @@ public class Section extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "section")
@@ -26,6 +27,10 @@ public class Section extends BaseTimeEntity {
 
     @Builder
     public Section(String name) {
+        this.name = name;
+    }
+
+    public void update(String name) {
         this.name = name;
     }
 

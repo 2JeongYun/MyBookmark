@@ -21,6 +21,7 @@ public class Category extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String name;
 
     private String color;
@@ -31,7 +32,6 @@ public class Category extends BaseTimeEntity {
     @ManyToOne
     private Section section;
 
-    // FIXME 기본값 설정
     private int openCount;
 
     @Builder
@@ -61,12 +61,10 @@ public class Category extends BaseTimeEntity {
         return section;
     }
 
-    public Long update(Section section, String name, String color) {
+    public void update(Section section, String name, String color) {
         setSection(section);
         this.name = name;
         this.color = color;
-
-        return this.id;
     }
 
     public int addOpenCount() {
