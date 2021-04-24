@@ -54,14 +54,14 @@ public class BookmarkTest {
     }
 
     @Test
-    public void 북마크의_카테고리를_설정한다() {
+    public void 북마크의_카테고리를_변경하면_카테고리에_변경내용이_적용된다() {
         Category prevCategory = new Category();
         Category updatedCategory = new Category();
         Bookmark bookmark = Bookmark.builder()
                 .category(prevCategory)
                 .build();
 
-        bookmark.setCategory(updatedCategory);
+        bookmark.update(updatedCategory, "", "", "");
 
         assertThat(prevCategory.getBookmarks()).isEmpty();
         assertThat(updatedCategory.getBookmarks()).contains(bookmark);

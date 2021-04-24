@@ -1,7 +1,5 @@
 package com.github.neukrang.mybookmark.domain.section;
 
-import com.github.neukrang.mybookmark.domain.category.Category;
-import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,6 @@ public class SectionRepositoryTest {
 
     @Autowired
     private SectionRepository sectionRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Test
     public void 섹션_저장한다() {

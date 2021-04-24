@@ -1,6 +1,5 @@
 package com.github.neukrang.mybookmark.domain.bookmark;
 
-import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.BaseTimeEntity;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import lombok.Builder;
@@ -45,7 +44,7 @@ public class Bookmark extends BaseTimeEntity {
         this.color = color;
     }
 
-    public Category setCategory(Category category) {
+    private Category setCategory(Category category) {
         Category prevCategory = this.category;
         if (prevCategory != null) {
             prevCategory.deleteBookmark(this);

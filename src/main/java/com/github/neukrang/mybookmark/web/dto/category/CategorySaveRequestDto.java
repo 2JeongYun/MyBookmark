@@ -1,6 +1,7 @@
-package com.github.neukrang.mybookmark.web.dto;
+package com.github.neukrang.mybookmark.web.dto.category;
 
 import com.github.neukrang.mybookmark.domain.category.Category;
+import com.github.neukrang.mybookmark.domain.section.Section;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,19 +10,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategorySaveRequestDto {
 
+    private Long sectionId;
     private String name;
     private String color;
 
     @Builder
-    public CategorySaveRequestDto (String name, String color) {
+    public CategorySaveRequestDto(Long sectionId, String name, String color) {
+        this.sectionId = sectionId;
         this.name = name;
         this.color = color;
     }
 
-    public Category toEntity() {
+    public Category toEntity(Section section) {
         return Category.builder()
-                .name(this.name)
-                .color(this.color)
+                .section(section)
+                .name(name)
+                .color(color)
                 .build();
     }
 }

@@ -29,8 +29,6 @@ public class BookmarkRepositoryTest {
 
     @After
     public void clean() {
-        bookmarkRepository.deleteAll();
-        categoryRepository.deleteAll();
         sectionRepository.deleteAll();
     }
 

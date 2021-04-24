@@ -1,0 +1,41 @@
+{{>layout/header}}
+
+<h1>카테고리 수정</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <input type="text" id="category-id" value="{{currentCategory.id}}" hidden="hidden">
+
+        <form>
+            <div class="form-group">
+                <select class="form-control" id="select-section">
+                    {{#sectionList}}
+                    <option value="{{id}}">
+                        {{name}}
+                    </option>
+                    {{/sectionList}}
+                </select>
+            </div>
+        </form>
+
+        <form>
+            <div class="form-group">
+                <label for="name">이름</label>
+                <input type="text" class="form-control" id="name" placeholder="카테고리 이름" value="{{currentCategory.name}}">
+            </div>
+        </form>
+
+        <form>
+            <div class="form-group">
+                <label for="color">색상</label>
+                <input type="color" class="form-control" id="color" value="{{currentCategory.color}}">
+            </div>
+        </form>
+
+        <button type="button" class="btn btn-danger" id="btn-category-delete">카테고리 삭제</button>
+        <a href="/" role="button" class="btn btn-secondary">취소</a>
+        <button type="button" class="btn btn-primary" id="btn-category-update">저장</button>
+    </div>
+</div>
+
+{{>layout/footer}}

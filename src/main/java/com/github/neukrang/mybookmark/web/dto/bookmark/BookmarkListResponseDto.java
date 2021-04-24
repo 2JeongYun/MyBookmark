@@ -1,23 +1,21 @@
-package com.github.neukrang.mybookmark.web.dto;
+package com.github.neukrang.mybookmark.web.dto.bookmark;
 
 import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import lombok.Getter;
 
 @Getter
-public class BookmarkResponseDto {
+public class BookmarkListResponseDto {
 
     private Long id;
     private String address;
     private String alias;
-    private String description;
     private String color;
     private int openCount;
 
-    public BookmarkResponseDto(Bookmark entity) {
+    public BookmarkListResponseDto(Bookmark entity) {
         this.id = entity.getId();
         this.address = entity.getAddress();
         this.alias = entity.getAlias();
-        this.description = entity.getDescription();
         this.color = entity.getColor();
         this.openCount = entity.getOpenCount();
     }

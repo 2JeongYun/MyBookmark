@@ -1,6 +1,5 @@
 package com.github.neukrang.mybookmark.domain.category;
 
-import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import com.github.neukrang.mybookmark.domain.section.Section;
 import com.github.neukrang.mybookmark.domain.section.SectionRepository;
 import org.junit.After;
@@ -9,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +23,6 @@ public class CategoryRepositoryTest {
 
     @After
     public void clean() {
-        categoryRepository.deleteAll();
         sectionRepository.deleteAll();
     }
 

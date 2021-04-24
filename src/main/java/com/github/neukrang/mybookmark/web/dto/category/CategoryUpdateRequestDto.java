@@ -1,4 +1,4 @@
-package com.github.neukrang.mybookmark.web.dto;
+package com.github.neukrang.mybookmark.web.dto.category;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,14 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoryUpdateRequestDto {
 
+    private Long sectionId;
     private String name;
     private String color;
-    private Long sectionId;
 
     @Builder
-    public CategoryUpdateRequestDto (String name, String color, Long sectionId) {
+    public CategoryUpdateRequestDto(Long sectionId, String name, String color) {
+        this.sectionId = sectionId;
         this.name = name;
         this.color = color;
-        this.sectionId = sectionId;
     }
 }

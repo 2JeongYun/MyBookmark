@@ -26,7 +26,7 @@ public class Category extends BaseTimeEntity {
 
     private String color;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Bookmark> bookmarks = new ArrayList<>();
 
     @ManyToOne
@@ -49,7 +49,7 @@ public class Category extends BaseTimeEntity {
         bookmarks.remove(bookmark);
     }
 
-    public Section setSection(Section section) {
+    private Section setSection(Section section) {
         Section prevSection = this.section;
         if (prevSection != null) {
             prevSection.deleteCategory(this);
@@ -61,10 +61,11 @@ public class Category extends BaseTimeEntity {
         return section;
     }
 
-    public void update(Section section, String name, String color) {
+    public Long update(Section section, String name, String color) {
         setSection(section);
         this.name = name;
         this.color = color;
+        return this.id;
     }
 
     public int addOpenCount() {

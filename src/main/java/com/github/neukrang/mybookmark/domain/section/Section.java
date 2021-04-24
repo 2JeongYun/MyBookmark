@@ -2,6 +2,7 @@ package com.github.neukrang.mybookmark.domain.section;
 
 import com.github.neukrang.mybookmark.domain.BaseTimeEntity;
 import com.github.neukrang.mybookmark.domain.category.Category;
+import com.github.neukrang.mybookmark.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,12 +23,16 @@ public class Section extends BaseTimeEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "section", cascade = CascadeType.REMOVE)
     private List<Category> categories = new ArrayList<>();
 
+    @ManyToOne
+    private User user;
+
     @Builder
-    public Section(String name) {
+    public Section(String name, User user) {
         this.name = name;
+        this.user = user;
     }
 
     public void update(String name) {

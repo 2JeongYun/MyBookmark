@@ -4,11 +4,10 @@ import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import com.github.neukrang.mybookmark.domain.section.Section;
-import com.github.neukrang.mybookmark.domain.section.SectionRepository;
-import com.github.neukrang.mybookmark.web.dto.CategoryResponseDto;
-import com.github.neukrang.mybookmark.web.dto.CategorySaveRequestDto;
-
-import com.github.neukrang.mybookmark.web.dto.CategoryUpdateRequestDto;
+import com.github.neukrang.mybookmark.web.dto.category.CategoryListResponseDto;
+import com.github.neukrang.mybookmark.web.dto.category.CategoryResponseDto;
+import com.github.neukrang.mybookmark.web.dto.category.CategorySaveRequestDto;
+import com.github.neukrang.mybookmark.web.dto.category.CategoryUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,45 +17,40 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private final SectionRepository sectionRepository;
+    private final SectionService sectionService;
 
-    @Transactional
-    public Long save(CategorySaveRequestDto requestDto) {
-        return categoryRepository.save(requestDto.toEntity()).getId();
+    public Long saveCategory(CategorySaveRequestDto requestDto) {
+        Section section = sectionService.findEntityById(requestDto.getSectionId());
+        return categoryRepository.save(requestDto.toEntity(section)).getId();
     }
 
-    @Transactional(readOnly = true)
-    public List<CategoryResponseDto> findAll() {
-        return categoryRepository.findAll().stream()
-                .map(CategoryResponseDto::new)
+    public Long updateCategory(Long categoryId, CategoryUpdateRequestDto requestDto) {
+        Category category = findEntityById(categoryId);
+        Section section = sectionService.findEntityById(requestDto.getSectionId());
+        return category.update(section, requestDto.getName(), requestDto.getColor());
+    }
+
+    public Long deleteCategory(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
+        return categoryId;
+    }
+
+    public CategoryResponseDto findById(Long categoryId) {
+        return new CategoryResponseDto(findEntityById(categoryId));
+    }
+
+    public List<CategoryListResponseDto> findAllDescByOpenCount(Long sectionId) {
+        return sectionService.getCategories(sectionId).stream()
+                .map(CategoryListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
-    @Transactional
-    public CategoryResponseDto findById(Long id) {
-        Category category = categoryRepository.findById(id)
+    public Category findEntityById(Long id) {
+        return categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
-        return new CategoryResponseDto(category);
-    }
-
-    @Transactional
-    public Long update(Long id, CategoryUpdateRequestDto requestDto) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
-        Section section = sectionRepository.findById(requestDto.getSectionId())
-                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindSectionMsg(requestDto.getSectionId())));
-        category.update(section, requestDto.getName(), requestDto.getColor());
-        return id;
-    }
-
-    @Transactional
-    public Long delete(Long id) {
-        categoryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
-        categoryRepository.deleteById(id);
-        return id;
     }
 }

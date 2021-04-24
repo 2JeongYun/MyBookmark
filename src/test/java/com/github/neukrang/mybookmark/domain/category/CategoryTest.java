@@ -77,14 +77,14 @@ public class CategoryTest {
     }
 
     @Test
-    public void 카테고리의_섹션을_설정한다() {
+    public void 카테고리의_섹션을_변경하면_섹션에_변경내용이_적용된다() {
         Section prevSection = new Section();
         Section updatedSection = new Section();
         Category category = Category.builder()
                 .section(prevSection)
                 .build();
 
-        category.setSection(updatedSection);
+        category.update(updatedSection, "", "");
 
         assertThat(prevSection.getCategories()).isEmpty();
         assertThat(updatedSection.getCategories()).contains(category);
