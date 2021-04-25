@@ -3,13 +3,16 @@ package com.github.neukrang.mybookmark.web;
 import com.github.neukrang.mybookmark.service.BookmarkService;
 import com.github.neukrang.mybookmark.service.CategoryService;
 import com.github.neukrang.mybookmark.service.SectionService;
+import com.github.neukrang.mybookmark.web.dto.category.CategoryResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -22,16 +25,20 @@ public class IndexController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("sectionList", sectionService.findAllOrderByName());
-        model.addAttribute("category", new ArrayList<>());
         return "home";
     }
 
     @GetMapping("/{sectionId}")
     public String home(@PathVariable Long sectionId, Model model) {
         model.addAttribute("sectionList", sectionService.findAllOrderByName());
-        model.addAttribute("category", categoryService.findAllDescByOpenCount(sectionId));
         model.addAttribute("currentSection", sectionService.findById(sectionId));
-        return "home";
+        List<CategoryResponseDto> categoryList = categoryService.findAllBySectionId(sectionId).stream()
+                .map((c) -> {
+                    return c.setBookmarkList(bookmarkService.findAllByCategoryId(c.getCId()));
+                })
+                .collect(Collectors.toList());
+        model.addAttribute("categoryList", categoryList);
+        return "home-section-selected";
     }
 
     @GetMapping("/section/save")
@@ -56,5 +63,11 @@ public class IndexController {
         model.addAttribute("currentCategory", categoryService.findById(id));
         model.addAttribute("sectionList", sectionService.findAllOrderByName());
         return "category-update";
+    }
+
+    @GetMapping("/bookmark/save")
+    public String saveBookmark(@RequestParam Long sectionId, Model model) {
+        model.addAttribute("categoryList", categoryService.findAllBySectionId(sectionId));
+        return "bookmark-save";
     }
 }

@@ -4,18 +4,20 @@ import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import lombok.Getter;
 
 @Getter
-public class BookmarkListResponseDto {
+public class BookmarkResponseDto {
 
     private Long bId;
     private String bAddress;
     private String bAlias;
+    private String bDescription;
     private String bColor;
     private int bOpenCount;
 
-    public BookmarkListResponseDto(Bookmark entity) {
+    public BookmarkResponseDto(Bookmark entity) {
         this.bId = entity.getId();
         this.bAddress = entity.getAddress();
         this.bAlias = entity.getAlias();
+        this.bDescription = entity.getDescription();
         this.bColor = entity.getColor();
         this.bOpenCount = entity.getOpenCount();
     }

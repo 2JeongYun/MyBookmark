@@ -6,11 +6,11 @@ import lombok.Getter;
 @Getter
 public class SectionResponseDto {
 
-    private Long id;
-    private String name;
+    private Long sId;
+    private String sName;
 
     public SectionResponseDto(Section entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
+        this.sId = entity.getId();
+        this.sName = entity.getName();
     }
 }

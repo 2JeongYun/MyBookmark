@@ -1,10 +1,10 @@
 package com.github.neukrang.mybookmark.service;
 
 import com.github.neukrang.mybookmark.config.TextConfig;
+import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import com.github.neukrang.mybookmark.domain.section.Section;
-import com.github.neukrang.mybookmark.web.dto.category.CategoryListResponseDto;
 import com.github.neukrang.mybookmark.web.dto.category.CategoryResponseDto;
 import com.github.neukrang.mybookmark.web.dto.category.CategorySaveRequestDto;
 import com.github.neukrang.mybookmark.web.dto.category.CategoryUpdateRequestDto;
@@ -39,13 +39,20 @@ public class CategoryService {
         return categoryId;
     }
 
+    public List<Bookmark> getBookmarks(Long categoryId) {
+        return findEntityById(categoryId).getBookmarks();
+    }
+
     public CategoryResponseDto findById(Long categoryId) {
         return new CategoryResponseDto(findEntityById(categoryId));
     }
 
-    public List<CategoryListResponseDto> findAllDescByOpenCount(Long sectionId) {
+    public List<CategoryResponseDto> findAllBySectionId(Long sectionId) {
         return sectionService.getCategories(sectionId).stream()
-                .map(CategoryListResponseDto::new)
+                .sorted((a, b) -> {
+                    return b.getOpenCount() - a.getOpenCount();
+                })
+                .map(CategoryResponseDto::new)
                 .collect(Collectors.toList());
     }
 

@@ -14,7 +14,6 @@ public class CategoryApiController {
 
     @PostMapping("/api/v1/category")
     public Long saveCategory(@RequestBody CategorySaveRequestDto requestDto) {
-        System.out.println("-------" + requestDto.getSectionId());
         return categoryService.saveCategory(requestDto);
     }
 

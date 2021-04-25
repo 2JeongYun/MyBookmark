@@ -1,0 +1,53 @@
+{{>layout/header}}
+
+<h1>북마크 저장</h1>
+
+<div class="col-md-12">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="select-section">카테고리</label>
+                <select class="form-control" id="select-category">
+                    {{#categoryList}}
+                        <option value="{{cId}}">
+                            {{cName}}
+                        </option>
+                    {{/categoryList}}
+                </select>
+            </div>
+        </form>
+
+        <form>
+            <div class="form-group">
+                <label for="address">주소</label>
+                <input type="text" class="form-control" id="address" placeholder="북마크 주소">
+            </div>
+        </form>
+
+        <form>
+            <div class="form-group">
+                <label for="alias">별칭</label>
+                <input type="text" class="form-control" id="alias" placeholder="북마크 별칭">
+            </div>
+        </form>
+
+        <form>
+            <div class="form-group">
+                <label for="description">설명</label>
+                <input type="text" class="form-control" id="description" placeholder="북마크 설명">
+            </div>
+        </form>
+
+        <form>
+            <div class="form-group">
+                <label for="color">색상</label>
+                <input type="color" class="form-control" id="color">
+            </div>
+        </form>
+
+        <button type="button" class="btn btn-secondary btn-cancel">취소</button>
+        <button type="button" class="btn btn-primary" id="btn-bookmark-save">저장</button>
+    </div>
+</div>
+
+{{>layout/footer}}

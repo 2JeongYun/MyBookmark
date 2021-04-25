@@ -4,7 +4,6 @@ import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.section.Section;
 import com.github.neukrang.mybookmark.domain.section.SectionRepository;
-import com.github.neukrang.mybookmark.web.dto.section.SectionListResponseDto;
 import com.github.neukrang.mybookmark.web.dto.section.SectionResponseDto;
 import com.github.neukrang.mybookmark.web.dto.section.SectionSaveRequestDto;
 import com.github.neukrang.mybookmark.web.dto.section.SectionUpdateRequestDto;
@@ -53,9 +52,9 @@ public class SectionService {
         return new SectionResponseDto(section);
     }
 
-    public List<SectionListResponseDto> findAllOrderByName() {
+    public List<SectionResponseDto> findAllOrderByName() {
         return sectionRepository.findAllOrderByName().stream()
-                .map(SectionListResponseDto::new)
+                .map(SectionResponseDto::new)
                 .collect(Collectors.toList());
     }
 }

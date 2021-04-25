@@ -5,23 +5,25 @@ import com.github.neukrang.mybookmark.web.dto.bookmark.BookmarkListResponseDto;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class CategoryResponseDto {
-    private Long id;
-    private String name;
-    private String color;
-    private int openCount;
+
+    private Long cId;
+    private String cName;
+    private String cColor;
+    private int cOpenCount;
     private List<BookmarkListResponseDto> bookmarkList;
 
     public CategoryResponseDto(Category entity) {
-        this.id = entity.getId();
-        this.name = entity.getName();
-        this.color = entity.getColor();
-        this.openCount = entity.getOpenCount();
-        this.bookmarkList = entity.getBookmarks().stream()
-                .map(BookmarkListResponseDto::new)
-                .collect(Collectors.toList());
+        this.cId = entity.getId();
+        this.cName = entity.getName();
+        this.cColor = entity.getColor();
+        this.cOpenCount = entity.getOpenCount();
+    }
+
+    public CategoryResponseDto setBookmarkList(List<BookmarkListResponseDto> bookmarkList) {
+        this.bookmarkList = bookmarkList;
+        return this;
     }
 }
