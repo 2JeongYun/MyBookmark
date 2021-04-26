@@ -46,6 +46,9 @@ gradle-app.setting
 # db log
 **/*.db
 
+# security
+**/application-oauth*
+
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
