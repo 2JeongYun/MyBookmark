@@ -19,17 +19,27 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Section> sections = new ArrayList<>();
 
     @Builder
-    public User(String name) {
+    public User(String name, String email, Role role) {
         this.name = name;
+        this.email = email;
+        this.role = role;
     }
 
-    public void update(String name) {
-        this.name = name;
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 }
