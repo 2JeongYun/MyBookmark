@@ -1,5 +1,7 @@
 package com.github.neukrang.mybookmark.config.auth;
 
+import com.github.neukrang.mybookmark.config.auth.dto.OAuthAttributes;
+import com.github.neukrang.mybookmark.config.auth.dto.SessionUser;
 import com.github.neukrang.mybookmark.domain.user.User;
 import com.github.neukrang.mybookmark.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
