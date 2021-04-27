@@ -38,7 +38,7 @@ public class IndexController {
                 })
                 .collect(Collectors.toList());
         model.addAttribute("categoryList", categoryList);
-        return "home-section-selected";
+        return "home-login";
     }
 
     @GetMapping("/section/save")
