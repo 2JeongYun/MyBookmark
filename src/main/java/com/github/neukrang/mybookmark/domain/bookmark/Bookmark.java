@@ -56,11 +56,12 @@ public class Bookmark extends BaseTimeEntity {
         return category;
     }
 
-    public void update(Category category, String alias, String description, String color) {
+    public Bookmark update(Category category, String alias, String description, String color) {
         setCategory(category);
         this.alias = alias;
         this.description = description;
         this.color = color;
+        return this;
     }
 
     public int addOpenCount() {
