@@ -1,5 +1,7 @@
 package com.github.neukrang.mybookmark.web;
 
+import com.github.neukrang.mybookmark.config.auth.LoginUser;
+import com.github.neukrang.mybookmark.config.auth.dto.SessionUser;
 import com.github.neukrang.mybookmark.service.BookmarkService;
 import com.github.neukrang.mybookmark.service.CategoryService;
 import com.github.neukrang.mybookmark.service.SectionService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,15 +24,19 @@ public class IndexController {
     private final BookmarkService bookmarkService;
     private final CategoryService categoryService;
     private final SectionService sectionService;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("sectionList", sectionService.findAllOrderByName());
+    public String home(@LoginUser SessionUser user, Model model) {
+        if (user != null) {
+            model.addAttribute("sectionList", sectionService.findAllOrderByName());
+            model.addAttribute("user", user);
+        }
         return "home";
     }
 
     @GetMapping("/{sectionId}")
-    public String home(@PathVariable Long sectionId, Model model) {
+    public String home(@LoginUser SessionUser user, @PathVariable Long sectionId, Model model) {
         model.addAttribute("sectionList", sectionService.findAllOrderByName());
         model.addAttribute("currentSection", sectionService.findById(sectionId));
         List<CategoryResponseDto> categoryList = categoryService.findAllBySectionId(sectionId).stream()
@@ -38,7 +45,8 @@ public class IndexController {
                 })
                 .collect(Collectors.toList());
         model.addAttribute("categoryList", categoryList);
-        return "home-login";
+        model.addAttribute("user", (SessionUser) httpSession.getAttribute("user"));
+        return "home";
     }
 
     @GetMapping("/section/save")
@@ -66,7 +74,7 @@ public class IndexController {
     }
 
     @GetMapping("/bookmark/save")
-    public String saveBookmark(@RequestParam Long sectionId, Model model) {
+    public String saveBookmark(@RequestParam("prevSectionId") Long sectionId, Model model) {
         model.addAttribute("categoryList", categoryService.findAllBySectionId(sectionId));
         return "bookmark-save";
     }
