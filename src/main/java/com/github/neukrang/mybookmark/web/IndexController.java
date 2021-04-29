@@ -1,5 +1,7 @@
 package com.github.neukrang.mybookmark.web;
 
+import com.github.neukrang.mybookmark.config.auth.LoginUser;
+import com.github.neukrang.mybookmark.config.auth.dto.SessionUser;
 import com.github.neukrang.mybookmark.service.BookmarkService;
 import com.github.neukrang.mybookmark.service.CategoryService;
 import com.github.neukrang.mybookmark.service.SectionService;
@@ -23,14 +25,17 @@ public class IndexController {
     private final SectionService sectionService;
 
     @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("sectionList", sectionService.findAllOrderByName());
+    public String home(@LoginUser SessionUser user, Model model) {
+        if (user != null) {
+            model.addAttribute("sectionList", sectionService.findAllByUserId(user.getId()));
+            model.addAttribute("user", user);
+        }
         return "home";
     }
 
     @GetMapping("/{sectionId}")
-    public String home(@PathVariable Long sectionId, Model model) {
-        model.addAttribute("sectionList", sectionService.findAllOrderByName());
+    public String home(@LoginUser SessionUser user, @PathVariable Long sectionId, Model model) {
+        model.addAttribute("sectionList", sectionService.findAllByUserId(user.getId()));
         model.addAttribute("currentSection", sectionService.findById(sectionId));
         List<CategoryResponseDto> categoryList = categoryService.findAllBySectionId(sectionId).stream()
                 .map((c) -> {
@@ -38,7 +43,8 @@ public class IndexController {
                 })
                 .collect(Collectors.toList());
         model.addAttribute("categoryList", categoryList);
-        return "home-section-selected";
+        model.addAttribute("user", user);
+        return "home";
     }
 
     @GetMapping("/section/save")
@@ -53,20 +59,20 @@ public class IndexController {
     }
 
     @GetMapping("/category/save")
-    public String saveCategory(Model model) {
-        model.addAttribute("sectionList", sectionService.findAllOrderByName());
+    public String saveCategory(@LoginUser SessionUser user, Model model) {
+        model.addAttribute("sectionList", sectionService.findAllByUserId(user.getId()));
         return "category-save";
     }
 
     @GetMapping("/category/update/{id}")
-    public String updateCategory(@PathVariable Long id, Model model) {
+    public String updateCategory(@LoginUser SessionUser user, @PathVariable Long id, Model model) {
         model.addAttribute("currentCategory", categoryService.findById(id));
-        model.addAttribute("sectionList", sectionService.findAllOrderByName());
+        model.addAttribute("sectionList", sectionService.findAllByUserId(user.getId()));
         return "category-update";
     }
 
     @GetMapping("/bookmark/save")
-    public String saveBookmark(@RequestParam Long sectionId, Model model) {
+    public String saveBookmark(@RequestParam("prevSectionId") Long sectionId, Model model) {
         model.addAttribute("categoryList", categoryService.findAllBySectionId(sectionId));
         return "bookmark-save";
     }

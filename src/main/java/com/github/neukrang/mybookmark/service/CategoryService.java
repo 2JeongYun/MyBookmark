@@ -31,7 +31,7 @@ public class CategoryService {
     public Long updateCategory(Long categoryId, CategoryUpdateRequestDto requestDto) {
         Category category = findEntityById(categoryId);
         Section section = sectionService.findEntityById(requestDto.getSectionId());
-        return category.update(section, requestDto.getName(), requestDto.getColor());
+        return category.update(section, requestDto.getName(), requestDto.getColor()).getId();
     }
 
     public Long deleteCategory(Long categoryId) {

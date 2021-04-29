@@ -35,8 +35,9 @@ public class Section extends BaseTimeEntity {
         this.user = user;
     }
 
-    public void update(String name) {
+    public Section update(String name) {
         this.name = name;
+        return this;
     }
 
     public void addCategory(Category category) {

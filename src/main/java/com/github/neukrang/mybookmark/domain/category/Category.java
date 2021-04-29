@@ -61,11 +61,11 @@ public class Category extends BaseTimeEntity {
         return section;
     }
 
-    public Long update(Section section, String name, String color) {
+    public Category update(Section section, String name, String color) {
         setSection(section);
         this.name = name;
         this.color = color;
-        return this.id;
+        return this;
     }
 
     public int addOpenCount() {

@@ -20,10 +20,11 @@ import java.util.stream.Collectors;
 public class SectionService {
 
     private final SectionRepository sectionRepository;
+    private final UserService userService;
 
-    public Long saveSection(SectionSaveRequestDto requestDto) {
-        Section section = sectionRepository.save(requestDto.toEntity());
-        return section.getId();
+    public Long saveSection(Long userId, SectionSaveRequestDto requestDto) {
+        Section section = requestDto.toEntity(userService.findEntityById(userId));
+        return sectionRepository.save(section).getId();
     }
 
     public Long updateSection(Long sectionId, SectionUpdateRequestDto requestDto) {
@@ -52,8 +53,8 @@ public class SectionService {
         return new SectionResponseDto(section);
     }
 
-    public List<SectionResponseDto> findAllOrderByName() {
-        return sectionRepository.findAllOrderByName().stream()
+    public List<SectionResponseDto> findAllByUserId(Long userId) {
+        return userService.getSections(userId).stream()
                 .map(SectionResponseDto::new)
                 .collect(Collectors.toList());
     }
