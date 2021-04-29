@@ -3,52 +3,50 @@
 <!-- 네비게이션 바 -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <ul class="navbar-nav">
-        {{#user}}
-            <!-- 현재 섹션 이름 변경 -->
-            {{#currentSection}}
-                <li class="nav-item">
-                    <a href="/section/update/{{sId}}?prevSectionId={{sId}}" role="button" class="btn btn-dark center">
-                    <span class="material-icons">drive_file_rename_outline</span>
-                    </a>
-                </li>
-            {{/currentSection}}
-
-            <!-- 섹션 선택 드랍박스 -->
-            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
-                {{#currentSection}}
-                    {{sName}}
-                {{/currentSection}}
-            </button>
-            <div class="dropdown-menu">
-                {{#sectionList}}
-                    <a class="dropdown-item" href="/{{sId}}">{{sName}}</a>
-                {{/sectionList}}
-            </div>
-
-            <!-- 객체 추가 메뉴 -->
-
+        <!-- 현재 섹션 이름 변경 -->
+        {{#currentSection}}
             <li class="nav-item">
-                <a href="/section/save?prevSectionId={{#currentSection}}{{sId}}{{/currentSection}}" role="button"
-                class="btn
-                btn-dark center">
-                <span class="material-icons">add_box</span>섹션
+                <a href="/section/update/{{sId}}?prevSectionId={{sId}}" role="button" class="btn btn-dark center">
+                <span class="material-icons">drive_file_rename_outline</span>
                 </a>
             </li>
+        {{/currentSection}}
+
+        <!-- 섹션 선택 드랍박스 -->
+        <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+            {{#currentSection}}
+                {{sName}}
+            {{/currentSection}}
+        </button>
+        <div class="dropdown-menu">
+            {{#sectionList}}
+                <a class="dropdown-item" href="/{{sId}}">{{sName}}</a>
+            {{/sectionList}}
+        </div>
+
+        <!-- 객체 추가 메뉴 -->
+
+        <li class="nav-item">
+            <a href="/section/save?prevSectionId={{#currentSection}}{{sId}}{{/currentSection}}" role="button"
+            class="btn
+            btn-dark center">
+            <span class="material-icons">add_box</span>섹션
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/category/save?prevSectionId={{#currentSection}}{{sId}}{{/currentSection}}" role="button"
+            class="btn btn-dark center">
+            <span class="material-icons">add_box</span>카테고리
+            </a>
+        </li>
+        {{#currentSection}}
             <li class="nav-item">
-                <a href="/category/save?prevSectionId={{#currentSection}}{{sId}}{{/currentSection}}" role="button"
+                <a href="/bookmark/save?prevSectionId={{sId}}" role="button"
                 class="btn btn-dark center">
-                <span class="material-icons">add_box</span>카테고리
+                <span class="material-icons">add_box</span>북마크
                 </a>
             </li>
-            {{#currentSection}}
-                <li class="nav-item">
-                    <a href="/bookmark/save?prevSectionId={{sId}}" role="button"
-                    class="btn btn-dark center">
-                    <span class="material-icons">add_box</span>북마크
-                    </a>
-                </li>
-            {{/currentSection}}
-        {{/user}}
+        {{/currentSection}}
 
         <!-- 로그인 -->
         {{#user}}

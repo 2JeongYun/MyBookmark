@@ -47,4 +47,12 @@ public class User extends BaseTimeEntity {
         this.name = name;
         return this;
     }
+
+    public void addSection(Section section) {
+        sections.add(section);
+    }
+
+    public void deleteSection(Section section) {
+        sections.remove(section);
+    }
 }

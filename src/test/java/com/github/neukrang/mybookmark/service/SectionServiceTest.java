@@ -2,6 +2,7 @@ package com.github.neukrang.mybookmark.service;
 
 import com.github.neukrang.mybookmark.domain.section.Section;
 import com.github.neukrang.mybookmark.domain.section.SectionRepository;
+import com.github.neukrang.mybookmark.domain.user.User;
 import com.github.neukrang.mybookmark.web.dto.section.SectionSaveRequestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,10 +31,11 @@ public class SectionServiceTest {
         ReflectionTestUtils.setField(section, "id", id);
 
         SectionSaveRequestDto requestDto = mock(SectionSaveRequestDto.class);
-        given(requestDto.toEntity()).willReturn(section);
-        given(sectionRepository.save(requestDto.toEntity())).willReturn(section);
+        User user = mock(User.class);
+        given(requestDto.toEntity(user)).willReturn(section);
+        given(sectionRepository.save(requestDto.toEntity(user))).willReturn(section);
 
-        Long result = sectionService.saveSection(requestDto);
+        Long result = sectionService.saveSection(1L, requestDto);
 
         assertThat(result).isEqualTo(id);
     }

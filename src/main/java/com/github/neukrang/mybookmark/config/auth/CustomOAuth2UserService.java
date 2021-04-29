@@ -4,6 +4,7 @@ import com.github.neukrang.mybookmark.config.auth.dto.OAuthAttributes;
 import com.github.neukrang.mybookmark.config.auth.dto.SessionUser;
 import com.github.neukrang.mybookmark.domain.user.User;
 import com.github.neukrang.mybookmark.domain.user.UserRepository;
+import com.github.neukrang.mybookmark.service.SectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -23,6 +24,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
     private final UserRepository userRepository;
     private final HttpSession httpSession;
+    private final SectionService sectionService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
