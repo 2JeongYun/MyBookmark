@@ -4,11 +4,11 @@ import com.github.neukrang.mybookmark.config.TextConfig;
 import com.github.neukrang.mybookmark.domain.section.Section;
 import com.github.neukrang.mybookmark.domain.user.User;
 import com.github.neukrang.mybookmark.domain.user.UserRepository;
+import com.github.neukrang.mybookmark.web.dto.user.UserResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,19 +17,18 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final HttpSession httpSession;
 
-    public List<Section> getSections(Long userId) {
+    protected List<Section> getSections(Long userId) {
         User user = findEntityById(userId);
         return user.getSections();
     }
 
-    public User findEntityById(Long id) {
+    protected User findEntityById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindUserMsg(id)));
     }
 
-    public void refreshSessionUser(Long userId) {
-        httpSession.setAttribute("user", userRepository.findById(userId));
+    public UserResponseDto findById(Long userId) {
+        return new UserResponseDto(findEntityById(userId));
     }
 }
