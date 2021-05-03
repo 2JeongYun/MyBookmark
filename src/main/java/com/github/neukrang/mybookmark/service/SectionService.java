@@ -22,8 +22,8 @@ public class SectionService {
     private final SectionRepository sectionRepository;
     private final UserService userService;
 
-    public Long saveSection(Long userId, SectionSaveRequestDto requestDto) {
-        Section section = requestDto.toEntity(userService.findEntityById(userId));
+    public Long saveSection(SectionSaveRequestDto requestDto) {
+        Section section = requestDto.toEntity(userService.findEntityById(requestDto.getUserId()));
         return sectionRepository.save(section).getId();
     }
 
@@ -39,12 +39,12 @@ public class SectionService {
         return sectionId;
     }
 
-    public Section findEntityById(Long sectionId) {
+    protected Section findEntityById(Long sectionId) {
         return sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindSectionMsg(sectionId)));
     }
 
-    public List<Category> getCategories(Long sectionId) {
+    protected List<Category> getCategories(Long sectionId) {
         return findEntityById(sectionId).getCategories();
     }
 

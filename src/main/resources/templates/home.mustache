@@ -19,9 +19,9 @@
             {{/currentSection}}
         </button>
         <div class="dropdown-menu">
-            {{#sectionList}}
+            {{#user.sectionList}}
                 <a class="dropdown-item" href="/{{sId}}">{{sName}}</a>
-            {{/sectionList}}
+            {{/user.sectionList}}
         </div>
 
         <!-- 객체 추가 메뉴 -->
@@ -51,7 +51,7 @@
         <!-- 로그인 -->
         {{#user}}
             <li class="nav-item center">
-                <span style="color: white; margin-right: 8px"><strong>안녕하세요. {{name}}님</strong></span>
+                <span style="color: white; margin-right: 8px"><strong>안녕하세요. {{uName}}님</strong></span>
             </li>
             <li class="nav-item">
                 <a href="/logout" role="button" class="btn btn-success active">로그아웃</a>
@@ -73,9 +73,10 @@
     {{/currentSection}}
 </nav>
 
+<!-- 카테고리 카드 컨테이너 -->
 <section class="category-section">
     <div id="category-container" class="card-columns">
-        {{#categoryList}}
+        {{#currentSection.categoryList}}
             <!-- 카테고리 기본 폼 -->
             <div class="card" style="border-color: {{cColor}}">
                 <!-- 컬러는 데이터 받아서 결정 -->
@@ -96,7 +97,7 @@
                     {{/bookmarkList}}
                 </ul>
             </div>
-        {{/categoryList}}
+        {{/currentSection.categoryList}}
     </div>
 </section>
 

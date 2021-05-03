@@ -21,6 +21,9 @@ public class SectionServiceTest {
     @Mock
     private SectionRepository sectionRepository;
 
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private SectionService sectionService;
 
@@ -32,10 +35,11 @@ public class SectionServiceTest {
 
         SectionSaveRequestDto requestDto = mock(SectionSaveRequestDto.class);
         User user = mock(User.class);
+        given(userService.findEntityById(requestDto.getUserId())).willReturn(user);
         given(requestDto.toEntity(user)).willReturn(section);
         given(sectionRepository.save(requestDto.toEntity(user))).willReturn(section);
 
-        Long result = sectionService.saveSection(1L, requestDto);
+        Long result = sectionService.saveSection(requestDto);
 
         assertThat(result).isEqualTo(id);
     }

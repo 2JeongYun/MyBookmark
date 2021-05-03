@@ -10,17 +10,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SectionSaveRequestDto {
 
+    private Long userId;
     private String name;
-
-    @Builder
-    public SectionSaveRequestDto(String name) {
-        this.name = name;
-    }
 
     public Section toEntity(User user) {
         return Section.builder()
                 .name(name)
                 .user(user)
                 .build();
+    }
+
+    @Builder
+    public SectionSaveRequestDto(String name, Long userId) {
+        this.userId = userId;
+        this.name = name;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

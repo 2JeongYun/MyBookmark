@@ -16,7 +16,8 @@ public class SectionApiController {
 
     @PostMapping("/api/v1/section")
     public Long saveSection(@LoginUser SessionUser user, @RequestBody SectionSaveRequestDto requestDto) {
-        return sectionService.saveSection(user.getId(), requestDto);
+        requestDto.setUserId(user.getId());
+        return sectionService.saveSection(requestDto);
     }
 
     @PutMapping("/api/v1/section/{sectionId}")

@@ -5,6 +5,7 @@ import com.github.neukrang.mybookmark.web.dto.bookmark.BookmarkListResponseDto;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class CategoryResponseDto {
@@ -20,10 +21,8 @@ public class CategoryResponseDto {
         this.cName = entity.getName();
         this.cColor = entity.getColor();
         this.cOpenCount = entity.getOpenCount();
-    }
-
-    public CategoryResponseDto setBookmarkList(List<BookmarkListResponseDto> bookmarkList) {
-        this.bookmarkList = bookmarkList;
-        return this;
+        this.bookmarkList = entity.getBookmarks().stream()
+                .map(BookmarkListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

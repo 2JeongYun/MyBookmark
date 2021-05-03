@@ -2,10 +2,9 @@ package com.github.neukrang.mybookmark.web;
 
 import com.github.neukrang.mybookmark.config.auth.LoginUser;
 import com.github.neukrang.mybookmark.config.auth.dto.SessionUser;
-import com.github.neukrang.mybookmark.service.BookmarkService;
 import com.github.neukrang.mybookmark.service.CategoryService;
 import com.github.neukrang.mybookmark.service.SectionService;
-import com.github.neukrang.mybookmark.web.dto.category.CategoryResponseDto;
+import com.github.neukrang.mybookmark.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,37 +12,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
-    private final BookmarkService bookmarkService;
     private final CategoryService categoryService;
     private final SectionService sectionService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String home(@LoginUser SessionUser user, Model model) {
         if (user != null) {
-            model.addAttribute("sectionList", sectionService.findAllByUserId(user.getId()));
-            model.addAttribute("user", user);
+            model.addAttribute("user", userService.findById(user.getId()));
         }
         return "home";
     }
 
     @GetMapping("/{sectionId}")
     public String home(@LoginUser SessionUser user, @PathVariable Long sectionId, Model model) {
-        model.addAttribute("sectionList", sectionService.findAllByUserId(user.getId()));
+        model.addAttribute("user", userService.findById(user.getId()));
         model.addAttribute("currentSection", sectionService.findById(sectionId));
-        List<CategoryResponseDto> categoryList = categoryService.findAllBySectionId(sectionId).stream()
-                .map((c) -> {
-                    return c.setBookmarkList(bookmarkService.findAllByCategoryId(c.getCId()));
-                })
-                .collect(Collectors.toList());
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("user", user);
         return "home";
     }
 

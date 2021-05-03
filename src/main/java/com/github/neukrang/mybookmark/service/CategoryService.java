@@ -1,7 +1,6 @@
 package com.github.neukrang.mybookmark.service;
 
 import com.github.neukrang.mybookmark.config.TextConfig;
-import com.github.neukrang.mybookmark.domain.bookmark.Bookmark;
 import com.github.neukrang.mybookmark.domain.category.Category;
 import com.github.neukrang.mybookmark.domain.category.CategoryRepository;
 import com.github.neukrang.mybookmark.domain.section.Section;
@@ -39,10 +38,6 @@ public class CategoryService {
         return categoryId;
     }
 
-    public List<Bookmark> getBookmarks(Long categoryId) {
-        return findEntityById(categoryId).getBookmarks();
-    }
-
     public CategoryResponseDto findById(Long categoryId) {
         return new CategoryResponseDto(findEntityById(categoryId));
     }
@@ -56,7 +51,7 @@ public class CategoryService {
                 .collect(Collectors.toList());
     }
 
-    public Category findEntityById(Long id) {
+    protected Category findEntityById(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(TextConfig.cantFindCategoryMsg(id)));
     }
